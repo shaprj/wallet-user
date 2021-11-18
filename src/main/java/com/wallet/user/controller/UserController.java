@@ -42,9 +42,9 @@ public class UserController {
 
     private <T> ResponseEntity<T> wrapOperationWith(final String operation, final Object request, final Supplier<T> supplier) {
         String requestString = request != null ? request.toString() : "'No Params'";
-        log.info("Begin {} operation for {}", operation, request);
+        log.info("Begin {} operation for {}", operation, requestString);
         T response = supplier.get();
-        log.info("End {} operation for {}", operation, request);
+        log.info("End {} operation for {}", operation, requestString);
         return ResponseEntity.ok(response);
     }
 }

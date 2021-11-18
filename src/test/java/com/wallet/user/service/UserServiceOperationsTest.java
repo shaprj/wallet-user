@@ -43,7 +43,6 @@ class UserServiceOperationsTest {
                 CreateUserApiRequest.builder().name("petr").lastName("brady").age(44).build());
 
         final List<GetUserApiResponse> resps0 = service.getAllUsers();
-        Assertions.assertThat(resps0).isNotEmpty();
         final int initialSize = resps0.size();
         final CreateUserApiResponse rs1 = service.createUser(rList.get(0));
         final List<GetUserApiResponse> resps1 = service.getAllUsers();
