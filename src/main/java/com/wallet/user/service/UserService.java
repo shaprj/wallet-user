@@ -41,7 +41,7 @@ public class UserService implements UserServiceOperations {
         user.setBanReason(request.getBanReason());
         repo.save(user);
         log.info("User successfully banned by request {}", request);
-        final BanUserApiResponse response =  mapper.map(request, BanUserApiResponse.class);
+        final BanUserApiResponse response = mapper.map(request, BanUserApiResponse.class);
         response.setSuccess(true);
         return response;
     }

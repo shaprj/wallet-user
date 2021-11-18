@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.UUID;
 
+@EqualsAndHashCode
 @Getter
 @Setter
 @Builder(toBuilder = true)
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Table(name = "wallet_user")
 public class WalletUser {
 
+    @EqualsAndHashCode.Exclude
     @Id
     @Column(updatable = false, nullable = false)
     @GeneratedValue(generator = "UUID")
