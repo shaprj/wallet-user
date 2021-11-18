@@ -1,29 +1,86 @@
 # Getting Started
 
-### Reference Documentation
+### Description
 
-For further reference, please consider the following sections:
+Wallet-User service main functions are:
+* Add user operation
+* Get all users
+* Ban user
 
-* [Official Gradle documentation](https://docs.gradle.org)
-* [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.7/gradle-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.5.7/gradle-plugin/reference/html/#build-image)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.5.7/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.5.7/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Configuration Processor](https://docs.spring.io/spring-boot/docs/2.5.7/reference/htmlsingle/#configuration-metadata-annotation-processor)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.5.7/reference/htmlsingle/#using-boot-devtools)
+### Build Wallet-User service
 
-### Guides
+Basically two ways for building Wallet-User service exist.
 
-The following guides illustrate how to use some features concretely:
+1. Use gradle builder from command line. This way is fast enough and could be used for local debug procedure:
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
+* ```gradle build```
 
-### Additional Links
+3. Use docker container builder. This way is good for deploying in container orchestration system, e.g. Kubernates. There are two gradle tasks in project:
+* ```gradle docker_build``` task is used for building docker image.
+* ```gradle docker_push``` task is used for pushing it to remote repo
 
-These additional references should also help you:
 
-* [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
+
+### Run
+
+There are two profiles in Wallet-User service project:
+
+* Default. Is used for local development cycle. Provides default local settings 
+* Prod. Is used for deploying to remote stand. following environment variables are used to control behaviour of service:
+
+  * ENV_POSTGRESQL_HOST (Default value: 192.168.0.102)
+  * ENV_POSTGRESQL_PORT (Default value: 5432)
+  * ENV_POSTGRESQL_DATABASE (Default value: postgres)
+  * ENV_POSTGRESQL_USERNAME (Default value: postgres)
+  * ENV_POSTGRESQL_PASSWORD ((Default value: 1q2w3e4r))
+
+Below is en example of running container:
+
+```docker run -it --expose=8080 --env ENV_POSTGRESQL_HOST=192.168.0.102 -p 8080:8080 shaprj/wallet-user:latest```
+
+Here only ENV_POSTGRESQL_HOST is redefined.
+
+### Query examples
+
+After Wallet-User service is successfully started we can access to it via swagger-ui web form:
+
+```http://localhost:8080/swagger-ui```
+
+Below are curl examples of REST querries:
+
+1. Get all users query:
+```
+    curl -X 'GET' \
+   'http://localhost:8080/user/user/all' \
+   -H 'accept: */*'
+```
+2. Add user query:
+```
+   curl -X 'POST' \
+   'http://localhost:8080/user/user/create' \
+   -H 'accept: */*' \
+   -H 'Content-Type: application/json' \
+   -d '{
+   "name": "Alex",
+   "lastName": "Smith",
+   "age": 25
+   }'
+```
+3. Ban user query:
+```
+curl -X 'POST' \
+  'http://localhost:8080/user/user/ban' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "userId": "baa741f8-63b8-43ce-ac16-96891108e3d0",
+  "banReason": "Bad guy"
+}'
+```
+
+### Integration
+
+This API could be simply integrated via openapi. Scheme for classes auto generation could be loaded here:
+
+```http://localhost:8080/v3/api-docs.yaml```
 

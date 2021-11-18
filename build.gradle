@@ -31,6 +31,22 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+tasks.register("docker_build") {
+    doLast {
+        exec {
+            commandLine("docker", "build", "-t", "shaprj/wallet-user:latest", ".")
+        }
+    }
+}
+
+tasks.register("docker_push") {
+    doLast {
+        exec {
+            commandLine("docker", "push", "shaprj/wallet-user:latest")
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
 }
