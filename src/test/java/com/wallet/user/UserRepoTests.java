@@ -8,11 +8,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.Optional;
+import java.util.Set;
 
 @SpringBootTest
 public class UserRepoTests {
 
+    private Validator validator;
     @Autowired
     private UserRepo userRepo;
 
@@ -30,5 +36,4 @@ public class UserRepoTests {
         userRepo.delete(u1saved);
         Assertions.assertThat(userRepo.findById(u1saved.getId())).isEmpty();
     }
-
 }

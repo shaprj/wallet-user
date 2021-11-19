@@ -32,7 +32,8 @@ There are two profiles in Wallet-User service project:
   * ENV_POSTGRESQL_PORT (Default value: 5432)
   * ENV_POSTGRESQL_DATABASE (Default value: postgres)
   * ENV_POSTGRESQL_USERNAME (Default value: postgres)
-  * ENV_POSTGRESQL_PASSWORD ((Default value: 1q2w3e4r))
+  * ENV_POSTGRESQL_PASSWORD (Default value: 1q2w3e4r)
+  * ENV_PRINT_STACK_TRACE (Default: local: true, stand: false)
 
 Below is en example of running container:
 

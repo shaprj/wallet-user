@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -19,21 +20,21 @@ public class UserController {
     @Autowired
     private UserServiceOperations userServiceOperations;
 
-    @PostMapping("/user/create")
+    @PostMapping("/create")
     @Operation(tags = {"User operations"}, summary = "Create new user API")
-    public ResponseEntity<CreateUserApiResponse> addNewUserApi(@RequestBody final CreateUserApiRequest request) {
+    public ResponseEntity<CreateUserApiResponse> addNewUserApi(@Valid @RequestBody final CreateUserApiRequest request) {
         return wrapOperationWith("Create user", request,
                 () -> userServiceOperations.createUser(request));
     }
 
-    @PostMapping("/user/ban")
+    @PostMapping("/ban")
     @Operation(tags = {"User operations"}, summary = "Ban user by id")
-    public ResponseEntity<BanUserApiResponse> banUserById(@RequestBody final BanUserApiRequest request) {
+    public ResponseEntity<BanUserApiResponse> banUserById(@Valid @RequestBody final BanUserApiRequest request) {
         return wrapOperationWith("Ban user", request,
                 () -> userServiceOperations.banUser(request));
     }
 
-    @GetMapping("/user/all")
+    @GetMapping("/all")
     @Operation(tags = {"User operations"}, summary = "Get all users")
     ResponseEntity<List<GetUserApiResponse>> getAllUsers() {
         return wrapOperationWith("Ban user", null,

@@ -2,6 +2,7 @@ package com.wallet.user.api;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Getter
@@ -12,6 +13,7 @@ import java.util.UUID;
 @ToString
 public class BanUserApiRequest {
 
+    @NotNull(message = "User id is mandatory")
     private UUID userId;
 
     private String banReason;
