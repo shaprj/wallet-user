@@ -52,13 +52,13 @@ Below are curl examples of REST querries:
 1. Get all users query:
 ```
     curl -X 'GET' \
-   'http://localhost:8080/user/user/all' \
+   'http://localhost:8080/user/all' \
    -H 'accept: */*'
 ```
 2. Add user query:
 ```
    curl -X 'POST' \
-   'http://localhost:8080/user/user/create' \
+   'http://localhost:8080/user/create' \
    -H 'accept: */*' \
    -H 'Content-Type: application/json' \
    -d '{
@@ -70,7 +70,7 @@ Below are curl examples of REST querries:
 3. Ban user query:
 ```
 curl -X 'POST' \
-  'http://localhost:8080/user/user/ban' \
+  'http://localhost:8080/user/ban' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
